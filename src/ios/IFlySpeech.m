@@ -2,27 +2,54 @@
 
 #import <Cordova/CDV.h>
 
-@interface IFlySpeech : CDVPlugin {
-  // Member variables go here.
-}
+#import <AVFoundation/AVFoundation.h>
 
-- (void)coolMethod:(CDVInvokedUrlCommand*)command;
+@interface IFlySpeech : CDVPlugin<AVSpeechSynthesizerDelegate> {
+  // Member variables go here.
+    NSString* callbackId;
+}
+@property (nonatomic, strong)AVSpeechSynthesizer* speechSynthesizer;
+
+- (void)speech:(CDVInvokedUrlCommand*)command;
 @end
 
 @implementation IFlySpeech
 
-- (void)coolMethod:(CDVInvokedUrlCommand*)command
+- (void)speech:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult* pluginResult = nil;
-    NSString* echo = [command.arguments objectAtIndex:0];
+    callbackId = command.callbackId;
+    NSString* message = [command.arguments objectAtIndex:0];
+    [self initSpeech];
+    [self speak:message];
+}
 
-    if (echo != nil && [echo length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
-    } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+- (void)initSpeech{
+    if(self.speechSynthesizer == nil){
+        self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+        self.speechSynthesizer.delegate = self;
     }
+}
 
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+- (void)speak:(NSString*)text{
+//    if(self.speechSynthesizer.isSpeaking){
+//        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+//    }
+    AVSpeechUtterance* utterance = [[AVSpeechUtterance alloc] initWithString:text];
+    utterance.rate = 0.1;
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh_CN"];
+    [self.speechSynthesizer speakUtterance:utterance];
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didCancelSpeechUtterance:(AVSpeechUtterance *)utterance{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
 
 @end

@@ -11,6 +11,7 @@
             </feature>
         </config-file>
         <source-file src="src/ios/IFlySpeech.m"/>
+        <framework src="AVFoundation.framework" />
     </platform>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
