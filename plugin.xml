@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="com.mobishift.cordova.plugins.iflyspeech" version="0.0.1" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>IFlySpeech</name>
+    <js-module name="IFlySpeech" src="www/IFlySpeech.js">
+        <clobbers target="cordova.plugins.IFlySpeech"/>
+    </js-module>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="IFlySpeech">
+                <param name="ios-package" value="IFlySpeech"/>
+            </feature>
+        </config-file>
+        <source-file src="src/ios/IFlySpeech.m"/>
+    </platform>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="IFlySpeech">
+                <param name="android-package" value="com.mobishift.cordova.plugins.iflyspeech.IFlySpeech"/>
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+            <uses-permission android:name="android.permission.READ_CONTACTS"/>
+        </config-file>
+
+        <source-file src="src/android/IFlySpeech.java" target-dir="src/com/mobishift/cordova/plugins/iflyspeech/IFlySpeech"/>
+
+        <lib-file src="src/android/libs/Msc.jar"/>
+        <resource-file src="src/android/libs/armeabi/libmsc.so" target="libs/armeabi"/>
+        <resource-file src="src/android/libs/armeabi-v7a/libmsc.so"  target="libs/armeabi-v7a" />
+        <resource-file src="src/android/libs/mips/libmsc.so" target="libs/mips" />
+        <resource-file src="src/android/libs/x86/libmsc.so" target="libs/x86" />
+    </platform>
+</plugin>
