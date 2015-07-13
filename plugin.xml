@@ -31,9 +31,9 @@
         <source-file src="src/android/IFlySpeech.java" target-dir="src/com/mobishift/cordova/plugins/iflyspeech/IFlySpeech"/>
 
         <lib-file src="src/android/libs/Msc.jar"/>
-        <resource-file src="src/android/libs/armeabi/libmsc.so" target="libs/armeabi"/>
-        <resource-file src="src/android/libs/armeabi-v7a/libmsc.so"  target="libs/armeabi-v7a" />
-        <resource-file src="src/android/libs/mips/libmsc.so" target="libs/mips" />
-        <resource-file src="src/android/libs/x86/libmsc.so" target="libs/x86" />
+        <resource-file src="src/android/libs/armeabi/libmsc.so" target="libs/armeabi/libmsc.so"/>
+        <resource-file src="src/android/libs/armeabi-v7a/libmsc.so"  target="libs/armeabi-v7a/libmsc.so" />
+        <resource-file src="src/android/libs/mips/libmsc.so" target="libs/mips/libmsc.so" />
+        <resource-file src="src/android/libs/x86/libmsc.so" target="libs/x86/libmsc.so" />
     </platform>
 </plugin>
