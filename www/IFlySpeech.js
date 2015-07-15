@@ -9,5 +9,5 @@ exports.speech = function(message, successCallback, errorCallback){
     message = message || "";
     successCallback = successCallback || noop;
     errorCallback = errorCallback || noop;
-    exports.exec('speech', speechString, successCallback, errorCallback);
+    exports.exec('speech', message, successCallback, errorCallback);
 };
