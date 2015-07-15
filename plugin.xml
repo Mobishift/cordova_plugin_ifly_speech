@@ -16,7 +16,7 @@
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="IFlySpeech">
-                <param name="android-package" value="com.mobishift.cordova.plugins.iflyspeech"/>
+                <param name="android-package" value="com.mobishift.cordova.plugins.iflyspeech.IFlySpeech"/>
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
